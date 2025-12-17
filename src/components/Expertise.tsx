@@ -8,78 +8,85 @@ import {
   faNodeJs,
   faPython,
   faJava,
+  faAngular,
+  faVuejs,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faGaugeHigh,
   faCheckCircle,
   faNetworkWired,
-  faLeaf,
   faFlask,
 } from "@fortawesome/free-solid-svg-icons";
 import Chip from "@mui/material/Chip";
 import "../assets/styles/Expertise.scss";
 
-// Define tech stack arrays for each skill section
+/* ------------------ Tech Stack Labels ------------------ */
+
 const labelsFrontend = [
-  "React",
-  "Next.js",
-  "Angular",
-  "TypeScript",
-  "Redux",
-  "MUI",
-  "RxJS",
-  "NgRx",
-  "Styled Components",
-  "Figma",
+  "React.js (Hooks, Context)",
+  "Next.js (SSR/SSG/ISR)",
+  "Angular (v2+)",
+  "Vue.js",
+  "TypeScript (ES2023+)",
+  "Redux / Redux Toolkit",
+  "TanStack Query (React Query)",
+  "SASS/SCSS, Tailwind CSS",
+  "Storybook, Design Systems",
+  "Component-Driven Architecture",
 ];
 
 const labelsPerfA11y = [
-  "Lighthouse",
-  "WCAG",
-  "React Profiler",
-  "Code Splitting",
-  "Lazy Loading",
+  "Core Web Vitals",
+  "Lighthouse Score",
+  "WCAG 2.1 Level AA",
+  "Code Splitting & Dynamic Imports",
+  "Memoization & Virtualization",
+  "CLS & FCP Resolution",
+  "React useTransition/useDeferredValue",
 ];
 
 const labelsTestingQuality = [
-  "Jest",
-  "React Testing Library",
-  "Cypress",
-  "CI/CD",
+  "Jest, React Testing Library",
+  "Cypress (E2E)",
+  "Webpack, Babel, Vite",
+  "Pre-commit Hooks & Code Review",
+  "Agile/Scrum",
 ];
 
 const labelsDevOps = [
+  "Azure DevOps Pipelines",
+  "AWS (Lambda, API Gateway)",
   "Docker",
-  "AWS Amplify",
-  "Netlify",
-  "Vercel",
-  "GitHub Actions",
+  "CI/CD Pipelines",
+  "AWS Elastic Beanstalk",
+  "Azure App Services/Blob Storage",
 ];
 
 const labelsAPIData = [
-  "REST",
-  "Axios",
-  "React Query",
-  "Caching",
-  "Error Handling",
+  "RESTful APIs, GraphQL",
+  "TanStack Query (Advanced Caching)",
+  "Data Synchronization",
+  "WebSockets, JWT Authentication",
+  "D3.js & Chart.js",
 ];
 
-const labelsBackendBasic = [
-  "Node.js",
-  "Express",
-  "JWT",
-  "MongoDB",
+const labelsBackendPrimary = [
+  "Python/FastAPI",
+  "Java (Spring Boot Familiarity)",
+  "API Contract Definition",
+  "Optimized Payload Structures",
+  "High-Throughput Microservices",
 ];
 
-const labelsBackendExtended = [
-  "Java",
-  "Spring Boot",
-  "Python",
-  "Flask",
-  "PostgreSQL",
+const labelsBackendNode = [
+  "Node.js/Express",
+  "API Response Transformations",
+  "Global State Updates",
+  "Client-Side Error Reporting",
 ];
 
-// Add containerVariants for parent animation
+/* ------------------ Animations ------------------ */
+
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -93,7 +100,6 @@ const containerVariants: Variants = {
   },
 };
 
-// Animation variants for each skill item
 const itemVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -106,19 +112,19 @@ const itemVariants: Variants = {
   },
 };
 
+/* ------------------ Component ------------------ */
+
 function Expertise() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
-  // Helper function for rendering Chips with improved accessibility
-  const renderChips = (labels: string[], chipTitle: string) => (
+  const renderChips = (labels: string[], title: string) => (
     <div className="flex-chips">
-      <span className="chip-title">{chipTitle}:</span>
+      <span className="chip-title">{title}:</span>
       {labels.map((label, i) => (
         <Chip
           key={i}
           className="chip"
           label={label}
-          // Added for accessibility
           role="listitem"
           aria-label={`Skill: ${label}`}
         />
@@ -135,96 +141,96 @@ function Expertise() {
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
       >
-        {/* Changed h1 to h2 for correct semantic heading structure */}
         <h2>Expertise</h2>
 
         <motion.div className="skills-grid">
-          {/* Frontend (React & Next.js) */}
+          {/* Frontend */}
           <motion.div className="skill" variants={itemVariants}>
-            {/* Added aria-hidden="true" to decorative icons */}
-            <FontAwesomeIcon icon={faReact} size="3x" aria-hidden="true" />
-            <h3>Frontend Engineering (React, Angular & Next.js)</h3>
+            <div className="icon-row tool-icons">
+              <FontAwesomeIcon icon={faReact} className="tool-icon" aria-hidden="true" />
+              <FontAwesomeIcon icon={faAngular} className="tool-icon" aria-hidden="true" />
+              <FontAwesomeIcon icon={faVuejs} className="tool-icon" aria-hidden="true" />
+            </div>
+            <h3>Modern Frontend Engineering</h3>
             <p>
-              Building scalable, high-performance, and accessible UIs. Strong focus on
-              SSR/SSG, reusable component libraries, and seamless Figma → code handoff.
+              Building fast, scalable, and maintainable UI applications using
+              React, Next.js, Angular, and TypeScript with a strong focus on
+              component-driven architecture.
             </p>
-            {renderChips(labelsFrontend, "Tech stack")}
+            {renderChips(labelsFrontend, "Primary Frameworks")}
           </motion.div>
 
-          {/* Performance & Accessibility */}
+          {/* Performance */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faGaugeHigh} size="3x" aria-hidden="true" />
-            <h3>Performance & Accessibility</h3>
+            <FontAwesomeIcon icon={faGaugeHigh} className="tool-icon" aria-hidden="true" />
+            <h3>Optimization & Core Web Vitals</h3>
             <p>
-              Optimizing first load and interaction with code splitting, caching, and
-              profiling; delivering WCAG-compliant, device-agnostic experiences.
+              Improving application performance by optimizing Core Web Vitals,
+              resolving CLS/FCP issues, and applying modern rendering and
+              code-splitting strategies.
             </p>
-            {renderChips(labelsPerfA11y, "Focus areas")}
+            {renderChips(labelsPerfA11y, "Focus Areas")}
           </motion.div>
 
-          {/* ... (repeat the pattern for all other skill sections) ... */}
-
-          {/* Testing & Quality */}
+          {/* Data & APIs */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faCheckCircle} size="3x" aria-hidden="true" />
+            <FontAwesomeIcon icon={faNetworkWired} className="tool-icon" aria-hidden="true" />
+            <h3>Data Management & Visualization</h3>
+            <p>
+              Advanced state management and caching with TanStack Query, combined
+              with scalable data visualization using D3.js and Chart.js.
+            </p>
+            {renderChips(labelsAPIData, "Core Skills")}
+          </motion.div>
+
+          {/* Testing */}
+          <motion.div className="skill" variants={itemVariants}>
+            <FontAwesomeIcon icon={faCheckCircle} className="tool-icon" aria-hidden="true" />
             <h3>Testing & Quality</h3>
             <p>
-              Shipping with confidence via unit, integration, and E2E coverage; automated
-              checks in CI to keep releases stable and maintainable.
+              Ensuring high-quality releases using unit, integration, and E2E
+              testing while following Agile and best engineering practices.
             </p>
-            {renderChips(labelsTestingQuality, "Tools")}
-          </motion.div>
-          
-          {/* DevOps & Tooling */}
-          <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faDocker} size="3x" aria-hidden="true" />
-            <h3>DevOps & Tooling</h3>
-            <p>
-              Streamlined delivery with CI/CD, preview deployments, and containerized
-              builds across AWS Amplify, Netlify, and Vercel.
-            </p>
-            {renderChips(labelsDevOps, "Platforms & tools")}
-          </motion.div>
-          
-          {/* API & Data */}
-          <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faNetworkWired} size="3x" aria-hidden="true" />
-            <h3>API Integration & Data</h3>
-            <p>
-              Robust REST integrations with resilient error handling, retries, and
-              client-side caching for fast, reliable data flows.
-            </p>
-            {renderChips(labelsAPIData, "Core skills")}
+            {renderChips(labelsTestingQuality, "Tools & Practices")}
           </motion.div>
 
-          {/* Backend (Node/Express basic) */}
+          {/* DevOps */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faNodeJs} size="3x" aria-hidden="true" />
-            <h3>Backend (Node/Express — Basic)</h3>
+            <FontAwesomeIcon icon={faDocker} className="tool-icon" aria-hidden="true" />
+            <h3>DevOps & CI/CD</h3>
             <p>
-              Building and testing REST endpoints to support frontend needs with Node.js
-              and Express; pragmatic auth and data handling.
+              Automating builds and deployments using AWS and Azure DevOps,
+              containerizing applications, and supporting zero-downtime releases.
             </p>
-            {renderChips(labelsBackendBasic, "Tech stack")}
+            {renderChips(labelsDevOps, "Platforms")}
           </motion.div>
 
-          {/* Backend & APIs (Extended: Java / Spring Boot / Python / Flask) */}
+          {/* Backend – Python / Java */}
           <motion.div className="skill" variants={itemVariants}>
-            <div className="icon-row">
-              <FontAwesomeIcon icon={faJava} size="2x" style={{ marginRight: 12 }} aria-hidden="true" />
-              <FontAwesomeIcon icon={faLeaf} size="2x" style={{ marginRight: 12 }} aria-hidden="true" />
-              <FontAwesomeIcon icon={faPython} size="2x" style={{ marginRight: 12 }} aria-hidden="true" />
-              <FontAwesomeIcon icon={faFlask} size="2x" aria-hidden="true" />
+            <div className="icon-row tool-icons">
+              <FontAwesomeIcon icon={faPython} className="tool-icon" aria-hidden="true" />
+              <FontAwesomeIcon icon={faFlask} className="tool-icon" aria-hidden="true" />
+              <FontAwesomeIcon icon={faJava} className="tool-icon" aria-hidden="true" />
             </div>
-            <h3>Backend Development & APIs</h3>
+            <h3>Backend Integration (Python & Java)</h3>
             <p>
-              Experience building and integrating APIs with Java (Spring Boot) and Python
-              (Flask), alongside Node/Express. Focus on secure auth, database integration,
-              and clean REST services to support scalable frontends.
+              Building and integrating RESTful APIs and microservices using
+              Python/FastAPI and Java, with optimized payloads and secure
+              authentication.
             </p>
-            {renderChips(labelsBackendExtended, "Tech stack")}
+            {renderChips(labelsBackendPrimary, "Integration Expertise")}
           </motion.div>
 
+          {/* Node.js */}
+          <motion.div className="skill" variants={itemVariants}>
+            <FontAwesomeIcon icon={faNodeJs} className="tool-icon" aria-hidden="true" />
+            <h3>Backend (Node.js)</h3>
+            <p>
+              Integrating frontend applications with Node.js/Express services,
+              handling API transformations, authentication, and error handling.
+            </p>
+            {renderChips(labelsBackendNode, "Tech Stack")}
+          </motion.div>
         </motion.div>
       </motion.div>
     </div>

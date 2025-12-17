@@ -1,3 +1,5 @@
+/* --- Navigation.scss (Complete Code) --- */
+
 .navbar-fixed-top {
   transition: all 0.3s ease;
 
@@ -19,20 +21,25 @@
 
   &.scrolled {
     &.light-mode {
-      background-color: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(12px);
+      background-color: rgba(255, 255, 255, 0.4); /* Slightly less transparent */
+      backdrop-filter: blur(12px); /* Slightly more blur when scrolled */
       -webkit-backdrop-filter: blur(12px);
+      opacity: 0.8;
     }
 
     &.dark-mode {
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(12px);
+      background-color: rgba(0, 0, 0, 0.5); /* Slightly less transparent */
+      backdrop-filter: blur(12px); /* Slightly more blur when scrolled */
       -webkit-backdrop-filter: blur(12px);
+      opacity: 0.8;
     }
   }
 }
 
-.drawer-light {
+/* GLASS EFFECT FOR THE MOBILE DRAWER: 
+  We must target the MuiPaper-root element inside the Drawer component 
+*/
+.drawer-light > .MuiPaper-root {
   background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -40,7 +47,7 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-.drawer-dark {
+.drawer-dark > .MuiPaper-root {
   background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);

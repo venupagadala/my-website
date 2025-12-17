@@ -3,70 +3,39 @@ import "./contact.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// ✅ Email RegEx validation
+// Basic email validation
 const isValidEmail = (email: string): boolean => {
   const regex = /^[\w.-]+@[a-zA-Z\d-]+\.[a-zA-Z]{2,4}$/;
   return regex.test(email) && email.endsWith(".com");
 };
 
 function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [errors, setErrors] = useState({ name: "", email: "", phone: "", message: "" });
+  const [touched, setTouched] = useState({ name: false, email: false, phone: false, message: false });
 
-  const [errors, setErrors] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const [touched, setTouched] = useState({
-    name: false,
-    email: false,
-    phone: false,
-    message: false,
-  });
-
-  // ✅ Validation function
+  // Field validation logic
   const validateField = (name: string, value: string): string => {
     switch (name) {
-      case "name":
-        return value.trim() ? "" : "Please enter your name";
-      case "email":
-        return isValidEmail(value) ? "" : "Enter a valid .com email";
-      case "phone":
-        return value && !/^\d{10}$/.test(value)
-          ? "Phone number must be 10 digits"
-          : "";
-      case "message":
-        return value.trim() ? "" : "Please enter a message";
-      default:
-        return "";
+      case "name": return value.trim() ? "" : "Please enter your name";
+      case "email": return isValidEmail(value) ? "" : "Enter a valid .com email";
+      case "phone": return value && !/^\d{10}$/.test(value) ? "Phone number must be 10 digits" : "";
+      case "message": return value.trim() ? "" : "Please enter a message";
+      default: return "";
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-
-    // Clear error while typing if already touched
+    
+    // Live validation after first touch
     if (touched[name as keyof typeof touched]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: validateField(name, value),
-      }));
+      setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
     }
   };
 
-  const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
     setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
@@ -74,8 +43,7 @@ function Contact() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validate all fields before submission
+    
     const newErrors = {
       name: validateField("name", formData.name),
       email: validateField("email", formData.email),
@@ -84,13 +52,9 @@ function Contact() {
     };
 
     setErrors(newErrors);
-    setTouched({
-      name: true,
-      email: true,
-      phone: true,
-      message: true,
-    });
+    setTouched({ name: true, email: true, phone: true, message: true });
 
+    // Check if form is valid before sending
     const isValid = Object.values(newErrors).every((err) => err === "");
     if (!isValid) return;
 
@@ -104,94 +68,88 @@ function Contact() {
         body: JSON.stringify(formData),
       });
     } catch (error) {
-      console.error("Email send error (ignored):", error);
+      console.error("Submission failed:", error);
     }
   };
 
-  const isFormValid =
-    formData.name.trim() &&
-    isValidEmail(formData.email) &&
-    formData.message.trim() &&
-    (!formData.phone || /^\d{10}$/.test(formData.phone));
+  // Logic for the button state
+  const isFormValid = 
+    formData.name.trim() && 
+    isValidEmail(formData.email) && 
+    formData.message.trim();
 
   return (
-    <div className="contact-container" id="contact">
-      <h1>Contact Me</h1>
-      <p>
-        Got a project waiting to be realized? Let's collaborate and make it
-        happen!
-      </p>
+    <section className="contact-container" id="contact" aria-labelledby="contact-heading">
+      <h1 id="contact-heading">Contact Me</h1>
+      <p>Got a project waiting to be realized? Let's collaborate!</p>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
+      <form className="contact-form" onSubmit={handleSubmit} noValidate>
         <div className="form-row">
-          {["name", "email", "phone"].map((field) => (
-            <div key={field} className="floating-label">
+          {[
+            { id: "name", label: "Your Name", type: "text" },
+            { id: "email", label: "Email", type: "email" },
+            { id: "phone", label: "Phone (optional)", type: "tel" }
+          ].map((field) => (
+            <div key={field.id} className="floating-label">
               <input
-                type={field === "email" ? "email" : "text"}
-                name={field}
-                value={formData[field as keyof typeof formData]}
+                id={field.id}
+                type={field.type}
+                name={field.id}
+                value={formData[field.id as keyof typeof formData]}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                onInput={
-                  field === "phone"
-                    ? (e) =>
-                        ((e.target as HTMLInputElement).value =
-                          e.currentTarget.value.replace(/\D/g, ""))
-                    : undefined
-                }
-                className={errors[field as keyof typeof errors] ? "error" : ""}
-                required={field !== "phone"}
+                className={errors[field.id as keyof typeof errors] ? "error" : ""}
+                aria-invalid={!!errors[field.id as keyof typeof errors]}
+                aria-describedby={errors[field.id as keyof typeof errors] ? `${field.id}-error` : undefined}
               />
-              <label
-                className={
-                  formData[field as keyof typeof formData] ? "active" : ""
-                }
+              <label 
+                htmlFor={field.id} 
+                className={formData[field.id as keyof typeof formData] ? "active" : ""}
               >
-                {field === "name"
-                  ? "Your Name"
-                  : field === "email"
-                  ? "Email"
-                  : "Phone (optional)"}
+                {field.label}
               </label>
 
-              {touched[field as keyof typeof touched] &&
-                errors[field as keyof typeof errors] && (
-                  <span className="error-text">
-                    {errors[field as keyof typeof errors]}
-                  </span>
-                )}
+              {touched[field.id as keyof typeof touched] && errors[field.id as keyof typeof errors] && (
+                <span className="error-text" id={`${field.id}-error`} role="alert">
+                  {errors[field.id as keyof typeof errors]}
+                </span>
+              )}
             </div>
           ))}
         </div>
 
         <div className="floating-label full-width">
           <textarea
+            id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
             onBlur={handleBlur}
             className={errors.message ? "error" : ""}
             rows={6}
-            required
+            aria-invalid={!!errors.message}
+            aria-describedby={errors.message ? "message-error" : undefined}
           />
-          <label className={formData.message ? "active" : ""}>Message</label>
+          <label htmlFor="message" className={formData.message ? "active" : ""}>Message</label>
+          
           {touched.message && errors.message && (
-            <span className="error-text">{errors.message}</span>
+            <span className="error-text" id="message-error" role="alert">
+              {errors.message}
+            </span>
           )}
         </div>
 
-        <button className="submit-btn" type="submit" disabled={!isFormValid}>
+        <button 
+          className="submit-btn" 
+          type="submit" 
+          disabled={!isFormValid} // Keeps your logic, but accessibility is improved via id/label mapping
+        >
           Send Message
         </button>
       </form>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar
-        pauseOnHover
-      />
-    </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+    </section>
   );
 }
 

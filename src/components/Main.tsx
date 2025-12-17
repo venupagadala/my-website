@@ -1,73 +1,73 @@
-// Main.js
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import "../assets/styles/Main.scss";
-import profilePic from "./../assets/images/dp.png";
 import EmailIcon from "@mui/icons-material/Email";
+import profilePic from "./../assets/images/dp.webp";
+import "../assets/styles/Main.scss";
+
+interface SocialLink {
+  href: string;
+  label: string;
+  icon: React.ReactElement;
+}
+
+const SOCIAL_LINKS: SocialLink[] = [
+  {
+    href: "https://github.com/venupagadala",
+    label: "GitHub Profile",
+    icon: <GitHubIcon aria-hidden="true" />,
+  },
+  {
+    href: "https://www.linkedin.com/in/venu-pagadala-77ab3a251/",
+    label: "LinkedIn Profile",
+    icon: <LinkedInIcon aria-hidden="true" />,
+  },
+  {
+    href: "mailto:venupagadala13@gmail.com",
+    label: "Email Venu",
+    icon: <EmailIcon aria-hidden="true" />,
+  },
+];
 
 function Main() {
+  const renderSocials = (className: string) => (
+    <div className={className}>
+      {SOCIAL_LINKS.map((link) => (
+        <a
+          key={link.label}
+          href={link.href}
+          target={link.href.startsWith("mailto") ? "_self" : "_blank"}
+          rel="noreferrer"
+          aria-label={link.label}
+        >
+          {link.icon}
+        </a>
+      ))}
+    </div>
+  );
+
   return (
-    <div className="container">
+    <section className="container" aria-label="Introduction">
       <div className="about-section">
         <div className="image-wrapper">
-          {/* ADDED: alt text for the profile picture */}
-          <img src={profilePic} alt="Venu Pagadala's profile avatar" />
+          <img 
+            src={profilePic} 
+            alt="Venu Pagadala" 
+            fetchPriority="high"
+          />
         </div>
+        
         <div className="content">
-          <div className="social_icons">
-            <a
-              href="https://github.com/venupagadala"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub Profile" // ADDED: aria-label
-            >
-              <GitHubIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
-            </a>
-            <a
-              href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn Profile" // ADDED: aria-label
-            >
-              <LinkedInIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
-            </a>
-            <a 
-              href="mailto:venupagadala13@gmail.com"
-              aria-label="Email Venu" // ADDED: aria-label
-            >
-              <EmailIcon aria-hidden="true" /> {/* ADDED: aria-hidden */}
-            </a>
-          </div>
-          <h1>Venu Pagadala</h1>
-          <h2 className="job-title">Software Engineer</h2>
+          {renderSocials("social_icons")}
+          
+          <header>
+            <h1>Venu Pagadala</h1>
+            <h2 className="job-title">Software Engineer</h2>
+          </header>
 
-          <div className="mobile_social_icons">
-            <a
-              href="https://github.com/venupagadala"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub Profile" 
-            >
-              <GitHubIcon aria-hidden="true" /> 
-            </a>
-            <a
-              href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn Profile" 
-            >
-              <LinkedInIcon aria-hidden="true" /> 
-            </a>
-             <a 
-              href="mailto:venupagadala13@gmail.com"
-              aria-label="Email Venu" 
-            >
-              <EmailIcon aria-hidden="true" /> 
-            </a>
-          </div>
+          {renderSocials("mobile_social_icons")}
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

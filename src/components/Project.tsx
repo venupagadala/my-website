@@ -6,6 +6,35 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 import "../assets/styles/Project.scss";
 
+// Define the Skeleton component directly within this file
+const ProjectSkeleton = () => {
+    // This structure matches the HTML/CSS of the actual project-card
+    return (
+      <article className="project-card project-skeleton" aria-hidden="true">
+        <div className="project-card__top-layer">
+          <div className="project-card__content">
+            <div className="skeleton-line skeleton-line--title" />
+            <div className="skeleton-line skeleton-line--short" />
+            <div className="skeleton-line" />
+          </div>
+          <div className="project-card__languages">
+            <div className="skeleton-tag" />
+            <div className="skeleton-tag skeleton-tag--medium" />
+          </div>
+        </div>
+  
+        <div className="project-card__bottom-layer">
+          <div className="project-card__details">
+            <div className="skeleton-line skeleton-line--title" />
+            <div className="skeleton-line skeleton-line--short" />
+          </div>
+          <div className="skeleton-button"></div>
+        </div>
+      </article>
+    );
+};
+
+
 type Repo = {
   id: number;
   name: string;
@@ -20,9 +49,12 @@ type RepoWithLanguages = Repo & {
   allLanguages: string[];
 };
 
+const SKELETON_COUNT = 4; // Number of skeleton cards to display while loading
+
 function Projects() {
   const [repos, setRepos] = useState<RepoWithLanguages[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const { ref: projectsGridRef, inView: projectsGridInView } = useInView({
     triggerOnce: true,
@@ -35,13 +67,23 @@ function Projects() {
         const res = await fetch(
           "https://api.github.com/users/venupagadala/repos"
         );
-        const data: Repo[] = await res.json();
+        const data = await res.json();
+
+        // 🛑 CRITICAL FIX: Check if API returned an array of repos or an error object
+        if (!Array.isArray(data)) {
+          console.error("GitHub API Error/Rate Limit:", data);
+          setError("Failed to load projects due to API restrictions. Please try again later.");
+          setLoading(false);
+          return; 
+        }
+
+        // Sort by creation date (newest first)
         const sortedData = data.sort(
           (a, b) =>
             new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         );
 
-        // Fetch all languages for each repo
+        // Fetch all languages for each repo asynchronously
         const reposWithLanguages = await Promise.all(
           sortedData.map(async (repo) => {
             const langRes = await fetch(
@@ -58,6 +100,7 @@ function Projects() {
         setRepos(reposWithLanguages);
       } catch (err) {
         console.error("Error fetching repos", err);
+        setError("An unexpected error occurred while fetching project data.");
       } finally {
         setLoading(false);
       }
@@ -84,22 +127,30 @@ function Projects() {
       } as Transition,
     },
   };
+  
+  const renderContent = () => {
+    if (loading) {
+        // Render ProjectSkeleton components while data is fetching
+        return (
+            <div className="projects__grid">
+                {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
+                    <ProjectSkeleton key={index} />
+                ))}
+            </div>
+        );
+    }
 
-  return (
-    <section id="projects" className="projects">
-      <header className="projects__header">
-        <h1 className="projects__title">Projects</h1>
-        <p className="projects__subtitle">
-          A glimpse into the projects I’ve built, combining creativity, clean
-          code, and modern web technologies.
-        </p>
-      </header>
+    if (error) {
+        // Display error message if API failed
+        return <p className="projects__error" role="alert">{error}</p>;
+    }
 
-      {loading ? (
-        <p role="status" aria-live="polite">
-          Loading projects…
-        </p>
-      ) : (
+    if (repos.length === 0) {
+        return <p className="projects__empty">No projects found on GitHub.</p>;
+    }
+    
+    // Normal project grid rendering
+    return (
         <motion.div
           ref={projectsGridRef}
           className="projects__grid"
@@ -144,7 +195,7 @@ function Projects() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="project-card__link"
-                  aria-label={`View ${repo.name} on GitHub`}
+                  aria-label={`View ${repo.name} on GitHub`} 
                 >
                   <FontAwesomeIcon icon={faGithub} /> View on GitHub
                 </a>
@@ -152,7 +203,20 @@ function Projects() {
             </motion.article>
           ))}
         </motion.div>
-      )}
+    );
+  }
+
+  return (
+    <section id="projects" className="projects">
+      <header className="projects__header">
+        <h1 className="projects__title">Projects</h1>
+        <p className="projects__subtitle">
+          A glimpse into the projects I’ve built, combining creativity, clean
+          code, and modern web technologies.
+        </p>
+      </header>
+
+      {renderContent()}
     </section>
   );
 }

@@ -108,10 +108,11 @@ button {
     background-color: #5000ca; /* same purple */
     cursor: not-allowed; /* crossed circle */
     pointer-events: all; /* allow hover for tooltip */
+    color: white;
   }
 
   &:disabled:hover::after {
-    content: "Complete all fields";
+    content: "Please fill the required fields";
     position: absolute;
     top: 110%;
     left: 50%;
