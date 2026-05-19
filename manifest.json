@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Venu Gopal Portfolio",
+  "name": "Venu Gopal - Senior Frontend Engineer",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#5000ca",
+  "background_color": "#ffffff",
+  "description": "Portfolio of Venu Gopal - Senior Frontend Engineer specializing in React, Next.js, TypeScript, and performance optimization"
 }
