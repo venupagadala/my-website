@@ -18,6 +18,9 @@
 .env.test.local
 .env.production.local
 
+# local image backups (originals kept out of the repo to avoid bloat)
+src/assets/images/_originals/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

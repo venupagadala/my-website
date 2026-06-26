@@ -1,4 +1,3 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBriefcase, faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
@@ -13,83 +12,85 @@ function Timeline() {
 
         <VerticalTimeline>
           
-          {/* Job: AT&T Services, Inc/Contract */}
+          {/* Job: HD Supply / Home Depot */}
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             contentStyle={{ background: "#ffffff" }}
             contentArrowStyle={{ borderRight: "7px solid #ffffff" }}
-            date="January 2024 – Present"
+            date="June 2025 - Present"
             iconStyle={{ background: "#5000ca", color: "#fff" }}
             icon={<FontAwesomeIcon icon={faBriefcase} aria-hidden="true" />}
-            aria-label="AT&T Services, Inc/Contract work experience as Sr. React JS Developer"
+            aria-label="HD Supply / Home Depot work experience as Sr. Frontend Engineer"
           >
-            <h3 className="vertical-timeline-element-title">Sr. Software Engineer (Contract)</h3>
-            <h4 className="vertical-timeline-element-subtitle">AT&T Services, Inc/Contract, USA</h4>
+            <h3 className="vertical-timeline-element-title">Sr. Frontend Engineer (Software Engineer)</h3>
+            <h4 className="vertical-timeline-element-subtitle">HD Supply / Home Depot, Atlanta, GA</h4>
             <ul className="timeline-points">
-              <li>Executed a large-scale migration to a modern Next.js/React.js PWA, resulting in a documented <strong>40% improvement in initial page load time</strong>.</li>
-              <li>Implemented the state synchronization layer using <strong>TanStack Query (React Query)</strong> with aggressive caching, boosting perceived application speed by <strong>over 30%</strong> for complex reporting.</li>
-              <li>Designed and optimized a high-performance, real-time diagnostic dashboard using Chart.js to translate complex API data into intuitive metric displays.</li>
-              <li>Strategically utilized React's `useTransition` and `useDeferredValue` for concurrent rendering, ensuring a consistently smoother and non-blocking UI experience.</li>
-              <li>Configured and automated the CI/CD pipeline using <strong>AWS Elastic Beanstalk</strong>, integrating E2E (Cypress) and unit (Jest) testing, maintaining <strong>95% test coverage</strong> on core business logic.</li>
+              <li>Migrating a <strong>legacy WebSphere Commerce platform</strong> into a modern Next.js and Optimizely CMS 12 headless architecture used by B2B business customers to browse products, manage accounts, and place orders.</li>
+              <li>Builds React components and page-level layouts across <strong>product listing, detail, cart, and account pages</strong>, integrating Optimizely CMS content and WCS commerce APIs for a consistent end-to-end experience.</li>
+              <li>Implemented <strong>Skeleton UI loading patterns</strong> across key pages, keeping the interface responsive and reducing perceived wait time during page transitions.</li>
+              <li>Working on <strong>homepage personalization</strong> including product carousels and hero banners that adapt based on user context, pulling data from APIs and rendering dynamic content through the CMS layer.</li>
+              <li>Handles <strong>authentication, session management, and cookie-based state persistence</strong> in the Next.js layer, including login flows and carrying user context across page navigations.</li>
+              <li>Contributes to frontend performance work including <strong>lazy loading, responsive image srcsets, and route-level code-splitting</strong> to keep Core Web Vitals in a healthy range across device types.</li>
+              <li>Played an active role on the team building <strong>Cursor AI tooling</strong>, including a PR readiness checker, an API testing assistant, and a code review helper, helping automate pull request validation and reduce manual review effort for the broader team.</li>
+              <li>Stays current on emerging AI development trends and shares relevant tools and practices with the team to keep workflows aligned with what's actually useful, not just what's new.</li>
             </ul>
           </VerticalTimelineElement>
 
-          {/* Job: Essilor */}
+          {/* Job: Kennesaw State University */}
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             contentStyle={{ background: "#ffffff" }}
             contentArrowStyle={{ borderRight: "7px solid #ffffff" }}
-            date="Sep 2021 – Aug 2023"
+            date="January 2024 - December 2024"
             iconStyle={{ background: "#5000ca", color: "#fff" }}
             icon={<FontAwesomeIcon icon={faBriefcase} aria-hidden="true" />}
-            aria-label="Essilor work experience as Software Engineer"
+            aria-label="Kennesaw State University work experience as Research Engineer"
+          >
+            <h3 className="vertical-timeline-element-title">Research Engineer</h3>
+            <h4 className="vertical-timeline-element-subtitle">Kennesaw State University, Atlanta, GA</h4>
+            <ul className="timeline-points">
+              <li>Developed and maintained <strong>React and Next.js web applications</strong> that turned research prototypes into usable tools, giving researchers a modern web interface to interact with AI-driven models.</li>
+              <li>Designed <strong>responsive, accessible, data-driven UIs</strong> and connected them to AI/ML APIs, enabling real-time interaction with research models through the frontend.</li>
+              <li>Built frontend architecture using <strong>TypeScript, React Hooks, and reusable component patterns</strong>, improving maintainability and developer productivity across the codebase.</li>
+              <li>Owned feature implementation end to end in a cross-functional academic research setting, including <strong>UI development, API integration, testing, and debugging</strong>.</li>
+            </ul>
+          </VerticalTimelineElement>
+
+          {/* Job: Divami Design Lab */}
+          <VerticalTimelineElement
+            className="vertical-timeline-element--work"
+            contentStyle={{ background: "#ffffff" }}
+            contentArrowStyle={{ borderRight: "7px solid #ffffff" }}
+            date="January 2023 - July 2023"
+            iconStyle={{ background: "#5000ca", color: "#fff" }}
+            icon={<FontAwesomeIcon icon={faBriefcase} aria-hidden="true" />}
+            aria-label="Divami Design Lab work experience as Software Engineer"
           >
             <h3 className="vertical-timeline-element-title">Software Engineer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Essilor, Remote</h4>
+            <h4 className="vertical-timeline-element-subtitle">Divami Design Lab, India</h4>
             <ul className="timeline-points">
-              <li>Developed a resilient, structured, multi-step registration flow using modular React.js components, contributing to a <strong>15% reduction in user drop-off rates</strong>.</li>
-              <li>Built a high-engagement internal data visualization application utilizing <strong>D3.js</strong> to render custom, interactive graph representations of patient flow and demographic data.</li>
-              <li>Implemented a sophisticated state management solution using <strong>Redux Toolkit</strong> to effectively manage complex, multi-stage asynchronous data operations.</li>
-              <li>Proactively optimized rendering cycles for frequently updated, data-heavy views by employing <strong>React memo</strong> and `useCallback`, minimizing unnecessary re-renders in large data tables.</li>
-              <li>Streamlined the continuous deployment process using <strong>Azure DevOps Pipelines</strong>, establishing clear rollback strategies to maintain a high frequency of zero-downtime deployments.</li>
+              <li>Built UI features for a customer-facing <strong>React PWA</strong>, focused on responsive, accessible interfaces and clean integration with REST APIs.</li>
+              <li>Learned the fundamentals of writing <strong>production-quality code</strong> in a real engineering team: consistent component structure, meaningful commit history, and code that other engineers could read and extend without guesswork.</li>
+              <li>Applied <strong>performance optimization techniques</strong> including code-splitting, lazy loading, and asset optimization, improving application load times and overall user experience.</li>
+              <li>Used <strong>React Hooks, TypeScript, and TanStack Query</strong> for state and API data management, wrote unit tests with Jest and React Testing Library, and participated regularly in code reviews.</li>
+              <li>Picked up the day-to-day discipline of working in an <strong>Agile team</strong>: sprint planning, ticket breakdown, and giving and receiving feedback in code review, which shaped how it approached engineering work going forward.</li>
             </ul>
           </VerticalTimelineElement>
           
-          {/* Job: Magneto IT Solutions */}
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            contentStyle={{ background: "#ffffff" }}
-            contentArrowStyle={{ borderRight: "7px solid #ffffff" }}
-            date="July 2019 – Aug 2021"
-            iconStyle={{ background: "#5000ca", color: "#fff" }}
-            icon={<FontAwesomeIcon icon={faBriefcase} aria-hidden="true" />}
-            aria-label="Magneto IT Solutions work experience as Frontend Developer"
-          >
-            <h3 className="vertical-timeline-element-title">Frontend Developer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Magneto IT Solutions, India</h4>
-            <ul className="timeline-points">
-              <li>Successfully delivered dynamic client-facing financial reporting dashboards, demonstrating versatility across <strong>React</strong> and <strong>Angular 2+</strong> frameworks based on client requirements.</li>
-              <li>Engineered sophisticated data table functionality by integrating a <strong>virtualized list library</strong> to allow fluid interaction with massive datasets (exceeding 10,000 rows).</li>
-              <li>Contributed extensively to and rigorously maintained a dedicated <strong>Component Library (Design System)</strong>, reducing boilerplate development effort by an estimated **20%** across several product teams.</li>
-              <li>Focused intensely on creating highly responsive and accessible (A11Y) user interfaces using modern CSS techniques (Flexbox, Grid), guaranteeing a flawless experience across all major browsers.</li>
-              <li>Managed end-to-end application deployment configuration on <strong>Azure App Services</strong> and utilized Azure Blob Storage for secure, low-latency static asset serving.</li>
-            </ul>
-          </VerticalTimelineElement>
-
           {/* Education: Master's */}
           <VerticalTimelineElement
             className="vertical-timeline-element--education"
             contentStyle={{ background: "#ffffff" }}
             contentArrowStyle={{ borderRight: "7px solid #ffffff" }}
-            date="Master of Science in Computer Science"
+            date="2024"
             iconStyle={{ background: "#0077b6", color: "#fff" }}
             icon={<FontAwesomeIcon icon={faGraduationCap} aria-hidden="true" />}
             aria-label="Master of Science in Computer Science"
           >
-            <h3 className="vertical-timeline-element-title">Master of Science in Computer Science</h3>
-            <h4 className="vertical-timeline-element-subtitle">Kennesaw State University, Georgia, USA</h4>
+            <h3 className="vertical-timeline-element-title">M.S. in Computer Science</h3>
+            <h4 className="vertical-timeline-element-subtitle">Kennesaw State University, Kennesaw, GA</h4>
             <ul className="timeline-points">
-              <li>Graduate studies in Computer Science at Kennesaw State University.</li>
+              <li>Advanced coursework in algorithms, data structures, software engineering, and distributed systems.</li>
             </ul>
           </VerticalTimelineElement>
 
@@ -98,15 +99,15 @@ function Timeline() {
             className="vertical-timeline-element--education"
             contentStyle={{ background: "#ffffff" }}
             contentArrowStyle={{ borderRight: "7px solid #ffffff" }}
-            date="Bachelor of Technology in Computer Science Engineering"
+            date="2023"
             iconStyle={{ background: "#0077b6", color: "#fff" }}
             icon={<FontAwesomeIcon icon={faGraduationCap} aria-hidden="true" />}
             aria-label="Bachelor of Technology in Computer Science and Engineering"
           >
-            <h3 className="vertical-timeline-element-title">Bachelor of Technology in Computer Science & Engineering</h3>
-            <h4 className="vertical-timeline-element-subtitle">Lakireddy Balireddy College of Engineering, India</h4>
+            <h3 className="vertical-timeline-element-title">B.Tech. in Computer Science Engineering</h3>
+            <h4 className="vertical-timeline-element-subtitle">Lakireddy Balireddy College of Engineering, Vijayawada, AP</h4>
             <ul className="timeline-points">
-              <li>Undergraduate studies in Computer Science Engineering.</li>
+              <li>Foundation in computer science fundamentals, programming, and software development principles.</li>
             </ul>
           </VerticalTimelineElement>
         </VerticalTimeline>

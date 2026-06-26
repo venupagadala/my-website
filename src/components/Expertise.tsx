@@ -1,4 +1,3 @@
-import React from "react";
 import { useInView } from "react-intersection-observer";
 import { motion, Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,16 +5,13 @@ import {
   faReact,
   faDocker,
   faNodeJs,
-  faPython,
   faJava,
-  faAngular,
-  faVuejs,
+  faAws,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faGaugeHigh,
   faCheckCircle,
-  faNetworkWired,
-  faFlask,
+  faRocket,
 } from "@fortawesome/free-solid-svg-icons";
 import Chip from "@mui/material/Chip";
 import "../assets/styles/Expertise.scss";
@@ -23,66 +19,66 @@ import "../assets/styles/Expertise.scss";
 /* ------------------ Tech Stack Labels ------------------ */
 
 const labelsFrontend = [
-  "React.js (Hooks, Context)",
-  "Next.js (SSR/SSG/ISR)",
-  "Angular (v2+)",
-  "Vue.js",
-  "TypeScript (ES2023+)",
-  "Redux / Redux Toolkit",
+  "React 19 (Hooks, Context, RSC)",
+  "Next.js App Router (SSR/SSG)",
+  "TypeScript (Strict Mode)",
+  "Tailwind CSS",
+  "Redux Toolkit",
+  "Zustand",
   "TanStack Query (React Query)",
-  "SASS/SCSS, Tailwind CSS",
-  "Storybook, Design Systems",
-  "Component-Driven Architecture",
+  "Component Architecture",
+  "Storybook (20-30 components)",
 ];
 
-const labelsPerfA11y = [
-  "Core Web Vitals",
-  "Lighthouse Score",
-  "WCAG 2.1 Level AA",
-  "Code Splitting & Dynamic Imports",
-  "Memoization & Virtualization",
-  "CLS & FCP Resolution",
-  "React useTransition/useDeferredValue",
+const labelsPerformance = [
+  "Core Web Vitals (62→88 Lighthouse)",
+  "Code-Splitting & Lazy Loading",
+  "Bundle Optimization (58% reduction)",
+  "Webpack, Vite",
+  "React Server Components",
+  "Parallel Routes & Dynamic Imports",
+  "Intelligent Prefetching",
+  "Skeleton UI Patterns",
+];
+
+const labelsBackendAPIs = [
+  "Java Spring Boot (API contracts)",
+  "Node.js/Express BFF Layer",
+  "PostgreSQL (Query optimization)",
+  "Redis (Caching strategies)",
+  "REST/GraphQL Design",
+  "OAuth2 & JWT Authentication",
+  "Session Management",
+  "Microservices Architecture",
 ];
 
 const labelsTestingQuality = [
   "Jest, React Testing Library",
-  "Cypress (E2E)",
-  "Webpack, Babel, Vite",
-  "Pre-commit Hooks & Code Review",
-  "Agile/Scrum",
+  "JUnit, Mockito",
+  "Bruno API Testing",
+  "Postman",
+  "WCAG 2.1 Level AA Compliance",
+  "TypeScript Strict Mode",
+  "Code Review (Type bugs ↓55%)",
 ];
 
-const labelsDevOps = [
-  "Azure DevOps Pipelines",
-  "AWS (Lambda, API Gateway)",
-  "Docker",
-  "CI/CD Pipelines",
-  "AWS Elastic Beanstalk",
-  "Azure App Services/Blob Storage",
+const labelsDevOpsCMS = [
+  "GitHub Actions CI/CD",
+  "Docker, Kubernetes",
+  "Optimizely CMS 12",
+  "AWS (Lambda, S3, RDS)",
+  "Headless Commerce",
+  "10+ Daily Deployments",
+  "Zero-Downtime Releases",
 ];
 
-const labelsAPIData = [
-  "RESTful APIs, GraphQL",
-  "TanStack Query (Advanced Caching)",
-  "Data Synchronization",
-  "WebSockets, JWT Authentication",
-  "D3.js & Chart.js",
-];
-
-const labelsBackendPrimary = [
-  "Python/FastAPI",
-  "Java (Spring Boot Familiarity)",
-  "API Contract Definition",
-  "Optimized Payload Structures",
-  "High-Throughput Microservices",
-];
-
-const labelsBackendNode = [
-  "Node.js/Express",
-  "API Response Transformations",
-  "Global State Updates",
-  "Client-Side Error Reporting",
+const labelsTooling = [
+  "Claude Code (AI pair programming)",
+  "GitHub Copilot Certified",
+  "Lighthouse Optimization",
+  "DevTools Profiling",
+  "Bundle Analysis",
+  "Cloudinary Image Optimization",
 ];
 
 /* ------------------ Animations ------------------ */
@@ -118,8 +114,8 @@ function Expertise() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const renderChips = (labels: string[], title: string) => (
-    <div className="flex-chips">
-      <span className="chip-title">{title}:</span>
+    <div className="flex-chips" role="list" aria-label={title}>
+      <span className="chip-title" aria-hidden="true">{title}:</span>
       {labels.map((label, i) => (
         <Chip
           key={i}
@@ -146,90 +142,68 @@ function Expertise() {
         <motion.div className="skills-grid">
           {/* Frontend */}
           <motion.div className="skill" variants={itemVariants}>
-            <div className="icon-row tool-icons">
-              <FontAwesomeIcon icon={faReact} className="tool-icon" aria-hidden="true" />
-              <FontAwesomeIcon icon={faAngular} className="tool-icon" aria-hidden="true" />
-              <FontAwesomeIcon icon={faVuejs} className="tool-icon" aria-hidden="true" />
-            </div>
-            <h3>Modern Frontend Engineering</h3>
+            <FontAwesomeIcon icon={faReact} className="tool-icon" aria-hidden="true" />
+            <h3>Modern Frontend Architecture</h3>
             <p>
-              Building fast, scalable, and maintainable UI applications using
-              React, Next.js, Angular, and TypeScript with a strong focus on
-              component-driven architecture.
+              Full-stack leaning frontend engineer (70/30 split) building mission-critical systems with React 19, Next.js App Router, and TypeScript. Own entire feature lifecycle from API design to pixel-perfect delivery at scale (500K+ SKUs, 50K+ users).
             </p>
-            {renderChips(labelsFrontend, "Primary Frameworks")}
+            {renderChips(labelsFrontend, "Core Stack")}
           </motion.div>
 
           {/* Performance */}
           <motion.div className="skill" variants={itemVariants}>
             <FontAwesomeIcon icon={faGaugeHigh} className="tool-icon" aria-hidden="true" />
-            <h3>Optimization & Core Web Vitals</h3>
+            <h3>DSA-Driven Performance Optimization</h3>
             <p>
-              Improving application performance by optimizing Core Web Vitals,
-              resolving CLS/FCP issues, and applying modern rendering and
-              code-splitting strategies.
+              Apply data structures and algorithms to solve production performance problems. Improved Lighthouse scores from 62→88, reduced bundle size by 58%, and cut API calls by 68% using request deduplication patterns and strategic code-splitting.
             </p>
-            {renderChips(labelsPerfA11y, "Focus Areas")}
+            {renderChips(labelsPerformance, "Optimizations")}
           </motion.div>
 
-          {/* Data & APIs */}
-          <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faNetworkWired} className="tool-icon" aria-hidden="true" />
-            <h3>Data Management & Visualization</h3>
-            <p>
-              Advanced state management and caching with TanStack Query, combined
-              with scalable data visualization using D3.js and Chart.js.
-            </p>
-            {renderChips(labelsAPIData, "Core Skills")}
-          </motion.div>
-
-          {/* Testing */}
-          <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faCheckCircle} className="tool-icon" aria-hidden="true" />
-            <h3>Testing & Quality</h3>
-            <p>
-              Ensuring high-quality releases using unit, integration, and E2E
-              testing while following Agile and best engineering practices.
-            </p>
-            {renderChips(labelsTestingQuality, "Tools & Practices")}
-          </motion.div>
-
-          {/* DevOps */}
-          <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faDocker} className="tool-icon" aria-hidden="true" />
-            <h3>DevOps & CI/CD</h3>
-            <p>
-              Automating builds and deployments using AWS and Azure DevOps,
-              containerizing applications, and supporting zero-downtime releases.
-            </p>
-            {renderChips(labelsDevOps, "Platforms")}
-          </motion.div>
-
-          {/* Backend – Python / Java */}
+          {/* Backend & APIs */}
           <motion.div className="skill" variants={itemVariants}>
             <div className="icon-row tool-icons">
-              <FontAwesomeIcon icon={faPython} className="tool-icon" aria-hidden="true" />
-              <FontAwesomeIcon icon={faFlask} className="tool-icon" aria-hidden="true" />
               <FontAwesomeIcon icon={faJava} className="tool-icon" aria-hidden="true" />
+              <FontAwesomeIcon icon={faNodeJs} className="tool-icon" aria-hidden="true" />
             </div>
-            <h3>Backend Integration (Python & Java)</h3>
+            <h3>Backend Integration & APIs</h3>
             <p>
-              Building and integrating RESTful APIs and microservices using
-              Python/FastAPI and Java, with optimized payloads and secure
-              authentication.
+              Design API contracts with Java Spring Boot teams, build Node.js BFF layers, and optimize PostgreSQL queries. Comfortable with Redis caching, OAuth2 flows, and microservices handling 2M+ daily requests with sub-200ms latency.
             </p>
-            {renderChips(labelsBackendPrimary, "Integration Expertise")}
+            {renderChips(labelsBackendAPIs, "Backend & Data")}
           </motion.div>
 
-          {/* Node.js */}
+          {/* Testing & Quality */}
           <motion.div className="skill" variants={itemVariants}>
-            <FontAwesomeIcon icon={faNodeJs} className="tool-icon" aria-hidden="true" />
-            <h3>Backend (Node.js)</h3>
+            <FontAwesomeIcon icon={faCheckCircle} className="tool-icon" aria-hidden="true" />
+            <h3>Reliability Engineering</h3>
             <p>
-              Integrating frontend applications with Node.js/Express services,
-              handling API transformations, authentication, and error handling.
+              Enforce TypeScript strict mode, WCAG 2.1 compliance, and performance standards through disciplined code review. Reduced type bugs by 55% and production defects by 60%. Build reusable architectures with accessibility baked in.
             </p>
-            {renderChips(labelsBackendNode, "Tech Stack")}
+            {renderChips(labelsTestingQuality, "Quality Standards")}
+          </motion.div>
+
+          {/* DevOps & CMS */}
+          <motion.div className="skill" variants={itemVariants}>
+            <div className="icon-row tool-icons">
+              <FontAwesomeIcon icon={faDocker} className="tool-icon" aria-hidden="true" />
+              <FontAwesomeIcon icon={faAws} className="tool-icon" aria-hidden="true" />
+            </div>
+            <h3>DevOps & Headless CMS</h3>
+            <p>
+              Automated CI/CD pipelines with GitHub Actions, Docker, and Kubernetes. Shipped 500K+ SKU e-commerce platform (WCS → Optimizely CMS 12 migration) with 10+ daily deployments and 99.8%+ uptime.
+            </p>
+            {renderChips(labelsDevOpsCMS, "Infrastructure")}
+          </motion.div>
+
+          {/* AI & Tooling */}
+          <motion.div className="skill" variants={itemVariants}>
+            <FontAwesomeIcon icon={faRocket} className="tool-icon" aria-hidden="true" />
+            <h3>AI-Assisted Development & Tooling</h3>
+            <p>
+              Use Claude Code and GitHub Copilot as co-engineers for complex refactors. Profile with Lighthouse and DevTools to identify bottlenecks, then apply algorithm-level solutions. GitHub Copilot Certified Developer.
+            </p>
+            {renderChips(labelsTooling, "Tools & Methodology")}
           </motion.div>
         </motion.div>
       </motion.div>

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { motion, Variants, Transition } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
@@ -71,7 +71,6 @@ function Projects() {
 
         // 🛑 CRITICAL FIX: Check if API returned an array of repos or an error object
         if (!Array.isArray(data)) {
-          console.error("GitHub API Error/Rate Limit:", data);
           setError("Failed to load projects due to API restrictions. Please try again later.");
           setLoading(false);
           return; 
@@ -98,8 +97,7 @@ function Projects() {
         );
 
         setRepos(reposWithLanguages);
-      } catch (err) {
-        console.error("Error fetching repos", err);
+      } catch {
         setError("An unexpected error occurred while fetching project data.");
       } finally {
         setLoading(false);
@@ -123,8 +121,8 @@ function Projects() {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.42, 0, 0.58, 1] as any,
-      } as Transition,
+        ease: [0.42, 0, 0.58, 1],
+      },
     },
   };
   
