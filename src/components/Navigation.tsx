@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -18,9 +18,16 @@ import Toolbar from '@mui/material/Toolbar';
 import "../assets/styles/Navigation.scss";
 
 const drawerWidth = 240;
-const navItems = [['Expertise', 'expertise'], ['History', 'history'], ['Projects', 'projects'], ['Contact', 'contact']];
+const navItems = [['Expertise', 'expertise'], ['History', 'history'], ['Certifications', 'certifications'], ['Projects', 'projects'], ['Contact', 'contact']];
 
-function Navigation({parentToChild, modeChange}: any) {
+interface NavigationProps {
+  parentToChild: {
+    mode: 'light' | 'dark';
+  };
+  modeChange: () => void;
+}
+
+function Navigation({parentToChild, modeChange}: NavigationProps) {
   const {mode} = parentToChild;
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -48,8 +55,6 @@ function Navigation({parentToChild, modeChange}: any) {
     const element = document.getElementById(section);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      console.error(`Element with id "${section}" not found`);
     }
   };
 

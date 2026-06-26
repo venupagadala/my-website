@@ -3,10 +3,31 @@ footer {
     padding-top: 50px;
     padding-bottom: 50px;
 
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 16px;
+
+        a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            min-height: 44px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+
+            &:hover,
+            &:focus-visible {
+                background-color: rgba(80, 0, 202, 0.12);
+            }
+        }
+    }
+
     svg {
-        width: 1.1em !important;
-        height: 1.1em !important;
-        margin-right: 10px;
+        width: 1.4em !important;
+        height: 1.4em !important;
     }
 
     p {

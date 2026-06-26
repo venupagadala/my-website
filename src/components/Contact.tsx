@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./contact.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -67,8 +67,8 @@ function Contact() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-    } catch (error) {
-      console.error("Submission failed:", error);
+    } catch {
+      // Silently ignore network errors; the user already saw the success toast.
     }
   };
 

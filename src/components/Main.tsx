@@ -22,7 +22,7 @@ const SOCIAL_LINKS: SocialLink[] = [
     icon: <LinkedInIcon aria-hidden="true" />,
   },
   {
-    href: "mailto:venupagadala13@gmail.com",
+    href: "mailto:venupagadala.ui@gmail.com",
     label: "Email Venu",
     icon: <EmailIcon aria-hidden="true" />,
   },
@@ -52,6 +52,8 @@ function Main() {
           <img 
             src={profilePic} 
             alt="Venu Pagadala" 
+            width={200}
+            height={300}
             fetchPriority="high"
           />
         </div>
@@ -60,8 +62,13 @@ function Main() {
           {renderSocials("social_icons")}
           
           <header>
-            <h1>Venu Pagadala</h1>
-            <h2 className="job-title">Software Engineer</h2>
+            <h1>Venu Gopal</h1>
+            <h2 className="job-title">Senior Frontend Engineer</h2>
+            {/* <p className="contact-info">
+              <a href="tel:+14707892167" aria-label="Phone number">(470) 789-2167 </a>
+              {" • "}
+              <a href="mailto:venupagadala.ui@gmail.com" aria-label="Email address">venupagadala.ui@gmail.com</a>
+            </p> */}
           </header>
 
           {renderSocials("mobile_social_icons")}
