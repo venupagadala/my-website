@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion, Variants } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { useProjects } from "../hooks/useProjects";
 
 import "../assets/styles/Project.scss";
 
@@ -34,77 +34,15 @@ const ProjectSkeleton = () => {
     );
 };
 
-
-type Repo = {
-  id: number;
-  name: string;
-  description: string | null;
-  html_url: string;
-  language: string | null;
-  created_at: string;
-};
-
-// Extended Repo type to include all languages
-type RepoWithLanguages = Repo & {
-  allLanguages: string[];
-};
-
 const SKELETON_COUNT = 4; // Number of skeleton cards to display while loading
 
 function Projects() {
-  const [repos, setRepos] = useState<RepoWithLanguages[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { projects, loading, error } = useProjects();
 
   const { ref: projectsGridRef, inView: projectsGridInView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
-
-  useEffect(() => {
-    const fetchReposAndLanguages = async () => {
-      try {
-        const res = await fetch(
-          "https://api.github.com/users/venupagadala/repos"
-        );
-        const data = await res.json();
-
-        // 🛑 CRITICAL FIX: Check if API returned an array of repos or an error object
-        if (!Array.isArray(data)) {
-          setError("Failed to load projects due to API restrictions. Please try again later.");
-          setLoading(false);
-          return; 
-        }
-
-        // Sort by creation date (newest first)
-        const sortedData = data.sort(
-          (a, b) =>
-            new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        );
-
-        // Fetch all languages for each repo asynchronously
-        const reposWithLanguages = await Promise.all(
-          sortedData.map(async (repo) => {
-            const langRes = await fetch(
-              `https://api.github.com/repos/venupagadala/${repo.name}/languages`
-            );
-            const langData = await langRes.json();
-            return {
-              ...repo,
-              allLanguages: Object.keys(langData),
-            };
-          })
-        );
-
-        setRepos(reposWithLanguages);
-      } catch {
-        setError("An unexpected error occurred while fetching project data.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchReposAndLanguages();
-  }, []);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -143,7 +81,7 @@ function Projects() {
         return <p className="projects__error" role="alert">{error}</p>;
     }
 
-    if (repos.length === 0) {
+    if (projects.length === 0) {
         return <p className="projects__empty">No projects found on GitHub.</p>;
     }
     
@@ -156,7 +94,7 @@ function Projects() {
           initial="hidden"
           animate={projectsGridInView ? "visible" : "hidden"}
         >
-          {repos.map((repo) => (
+          {projects.map((repo) => (
             <motion.article
               key={repo.id}
               className="project-card"
@@ -169,11 +107,11 @@ function Projects() {
                     {repo.name}
                   </h3>
                   <p className="project-card__description--visible">
-                    {repo.description || "No description available."}
+                    {repo.description}
                   </p>
                 </div>
                 <div className="project-card__languages">
-                  {repo.allLanguages.map((lang) => (
+                  {repo.languages.map((lang) => (
                     <span key={lang} className="language-tag">
                       {lang}
                     </span>
@@ -185,11 +123,11 @@ function Projects() {
                 <div className="project-card__details">
                   <h3 className="project-card__title">{repo.name}</h3>
                   <p className="project-card__description">
-                    {repo.description || "No description available."}
+                    {repo.description}
                   </p>
                 </div>
                 <a
-                  href={repo.html_url}
+                  href={repo.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="project-card__link"
