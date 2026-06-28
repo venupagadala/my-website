@@ -6,6 +6,7 @@ A fast, accessible, fully-typed portfolio built with **React 18 + TypeScript**, 
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-000000?style=for-the-badge&logo=firefoxbrowser&logoColor=white)](https://venupagadala.github.io/my-website/)
 [![GitHub](https://img.shields.io/badge/Source-121011?style=for-the-badge&logo=github&logoColor=white)](https://github.com/venupagadala/my-website)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/venu-pagadala-77ab3a251/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-5000ca?style=for-the-badge)](LICENSE)
 
 </div>

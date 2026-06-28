@@ -10,7 +10,7 @@ function Footer() {
         <a href="https://github.com/venupagadala" target="_blank" rel="noreferrer" aria-label="GitHub Profile">
           <GitHubIcon />
         </a>
-        <a href="https://www.linkedin.com/in/venu-pagadala-77ab3a251" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile">
+        <a href="https://www.linkedin.com/in/venu-pagadala-77ab3a251/" target="_blank" rel="noreferrer" aria-label="LinkedIn Profile">
           <LinkedInIcon />
         </a>
         <a href="mailto:venupagadala.ui@gmail.com" aria-label="Email">

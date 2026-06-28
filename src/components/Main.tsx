@@ -17,7 +17,7 @@ const SOCIAL_LINKS: SocialLink[] = [
     icon: <GitHubIcon aria-hidden="true" />,
   },
   {
-    href: "https://www.linkedin.com/in/venu-gopal-01068823a/",
+    href: "https://www.linkedin.com/in/venu-pagadala-77ab3a251/",
     label: "LinkedIn Profile",
     icon: <LinkedInIcon aria-hidden="true" />,
   },
